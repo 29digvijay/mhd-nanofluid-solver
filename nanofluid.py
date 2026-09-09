@@ -1,13 +1,3 @@
-"""
-nanofluid.py
------------
-Thermo-physical properties and nanofluid coefficients a1–a5
-for Cu–water and TiO2–water systems.
-
-Reference: Reddy, Mng'ang'a & Kanaka Rao (2026), Asia-Pacific J. Chem. Eng.
-Table 2 (base fluid + nanoparticle data at 25°C / 298 K)
-"""
-
 import numpy as np
 
 # ── Base-fluid (water) properties ────────────────────────────────────────────
@@ -21,21 +11,6 @@ PARTICLES = {
 
 
 def nanofluid_coeffs(phi: float, particle: str = "Cu") -> dict:
-    """
-    Return the five dimensionless nanofluid coefficients a1–a5 for a given
-    nanoparticle volume fraction phi and particle type.
-
-    Definitions (Paper eqs. after (P12)):
-        a1 = (1-phi) + phi*(rho_s/rho_f)
-        a2 = (1-phi)^{-2.5}                        [Brinkman viscosity]
-        a3 = [(1-phi) + phi*(rho*beta_T)_s/(rho*beta_T)_f]
-        a4 = [(1-phi) + phi*(rho*cp)_s/(rho*cp)_f]
-        a5 = (1+2*phi + (2-2*phi)*kf/ks)           [Maxwell conductivity]
-             / (1-phi  + (2+phi )*kf/ks)            ← CORRECTED denominator
-
-    Note: the paper's printed a5 denominator uses (1-2φ)+(2+2φ)kf/ks which
-    is inconsistent with the Maxwell formula; the corrected form is used here.
-    """
     f = WATER
     s = PARTICLES[particle]
 

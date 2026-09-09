@@ -3,9 +3,7 @@ sys.path.insert(0, os.path.dirname(__file__))
 
 from solver import solve
 
-# ── Paper's Table 3 reference values (Raghunath [24] / Present results) ──────
 TABLE3_PAPER = {
-    # (-Hs, N) : (Nu_Cu_Raghunath, Nu_TiO2_Raghunath, Nu_Cu_paper, Nu_TiO2_paper)
     (3, 1): (0.9412, 1.4645, 0.94116, 1.46449),
     (4, 1): (1.4956, 1.9454, 1.49553, 1.94537),
     (5, 1): (2.4132, 2.3751, 2.41318, 2.37509),
@@ -14,11 +12,10 @@ TABLE3_PAPER = {
     (2, 3): (2.2395, 1.7825, 2.23904, 1.78251),
 }
 
-# ── Common parameters shared across all Table 3 rows ─────────────────────────
 COMMON = dict(
     t_end=0.5,
     dt=0.0095,
-    dxi=0.05,       # finer than paper's 0.35 for better accuracy
+    dxi=0.05,      
     xi_max=5.0,
     alpha=1.0,
     n=1.0,
@@ -27,7 +24,6 @@ COMMON = dict(
     R=0.0,
     Du=0.0,
     phi=0.15,
-    # remaining defaults match paper default set:
     M=1.0,
     Kp=0.15,
     Gr=5.0,
@@ -49,7 +45,7 @@ print(header)
 print(f"{'─'*90}")
 
 for (neg_Hs, N), (Nu_Cu_R, Nu_TiO2_R, Nu_Cu_P, Nu_TiO2_P) in sorted(TABLE3_PAPER.items()):
-    Hs = -neg_Hs   # paper's Table 3 header is "−Hs", so Hs is negative here
+    Hs = -neg_Hs  
 
     r_Cu = solve(**COMMON, Hs=Hs, N=N, particle="Cu")
     r_Ti = solve(**COMMON, Hs=Hs, N=N, particle="TiO2")
